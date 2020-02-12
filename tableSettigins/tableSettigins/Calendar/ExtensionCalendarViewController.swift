@@ -22,6 +22,8 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
             setLabelLayout()
             return 0
         } else {
+            self.scheduleView.isScrollEnabled = true
+            self.scheduleView.separatorStyle = .singleLine
             self.noLessonsLabel.isHidden = true
             return lessons.count
         }
