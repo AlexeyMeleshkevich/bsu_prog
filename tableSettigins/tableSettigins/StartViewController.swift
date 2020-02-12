@@ -27,6 +27,8 @@ class StartViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginTextField.text = "rct.lishanen"
+        passwordTextField.text = "1721265"
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(sender:)))
         view.addGestureRecognizer(tap)
     }

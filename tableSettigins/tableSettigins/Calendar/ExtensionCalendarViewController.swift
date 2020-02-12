@@ -13,8 +13,18 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: lessonsView(UITableView) protocols methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lessons.count
-        
+        if lessons.count == 0 {
+            self.scheduleView.separatorStyle = .none
+            scheduleView.addSubview(self.noLessonsLabel)
+            self.noLessonsLabel.isHidden = false
+            self.scheduleView.isScrollEnabled = false
+
+            setLabelLayout()
+            return 0
+        } else {
+            self.noLessonsLabel.isHidden = true
+            return lessons.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -44,6 +54,11 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func setLabelLayout() {
+        self.noLessonsLabel.centerYAnchor.constraint(equalTo: self.scheduleView.centerYAnchor, constant: 0).isActive = true
+        self.noLessonsLabel.centerXAnchor.constraint(equalTo: self.scheduleView.centerXAnchor).isActive = true
     }
 }
 
@@ -75,11 +90,11 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
         var dayString = String()
         switch direction {
         case 0:
-             dayString = "\(day - numberOfEmptyBoxes)"
+            dayString = "\(day - numberOfEmptyBoxes)"
         case 1:
-             dayString = "\(day - nextNumberOfEmptyBox)"
+            dayString = "\(day - nextNumberOfEmptyBox)"
         case -1:
-             dayString = "\(day - previosNumberOfEmptyBox)"
+            dayString = "\(day - previosNumberOfEmptyBox)"
         default:
             fatalError()
         }
